@@ -13,7 +13,6 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     idle: 10000
   },
 
-  // SQLite only
   storage: './db.sqlite'
 })
 
@@ -28,19 +27,8 @@ sequelize
 
 const ContactModel = sequelize.define('Contact', Contact)
 
-const main = async () => {
-  await ContactModel.sync({ force: true })
-    .then(res => console.log('Contact model created'))
-
-  await ContactModel.create({
-    name: 'Emerson',
-    number: 232342321
-  })
-
-  await ContactModel.findAll().then(contacts => contacts.map(el => console.log(el.name)))
-}
-
-main()
+ContactModel.sync({ force: true })
+  .then(res => console.log('Contact model created'))
 
 module.exports = {
   ContactModel: ContactModel

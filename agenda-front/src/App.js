@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import "./App.css"
 import { Agenda } from "./components/Agenda/Agenda";
 import { Navbar } from "./components/Navbar/Navbar";
+import { AddContact } from "./components/AddContactForm/AddContactForm";
 
 class App extends Component {
   constructor(props){
     super(props);
+
+    this.contacts = []
+
     this.state = {
       contacts: [],
-      url: 'http://localhost:3000/contacts/'
+      url: window.location.href + 'contacts/',
+      isAddContact: false,
     }
 
     this.getContacts = this.getContacts.bind(this)
@@ -20,7 +25,7 @@ class App extends Component {
   }
 
   filterContacts(string) {
-    let filtredContacts = this.state.contacts;
+    let filtredContacts = this.contacts;
 
     if (string !== '') {
       filtredContacts = this.state.contacts
@@ -35,9 +40,8 @@ class App extends Component {
     fetch(this.state.url)
       .then(res => res.json())
       .then(data => {
-        this.setState({contacts: data})
-        console.log(this.state.data)
-        console.log(this.state.contacts)
+        this.contacts = data;
+        this.setState({ contacts: data, isAddContact: false  })
       })
   }
 
@@ -46,8 +50,17 @@ class App extends Component {
       <div className="App">
         <Navbar filterFn={ this.filterContacts }/>
         <div className="container mt-10">
-          <button type="button" className="btn btn-success">Adicionar contato</button>
-          <Agenda contacts={this.state.contacts} />
+          {(!this.state.isAddContact)
+            ? <button type="button" className="btn btn-success" onClick={
+                () => this.setState({isAddContact: true})
+              }>Adicionar contato</button>
+            : <AddContact afterAddFn={ this.getContacts }/>
+          }
+
+          {(!!this.state.contacts)
+            ? <Agenda contacts={this.state.contacts} />
+            : <strong>Não foi possível encontrar o termo ou número procurado</strong>
+          }
         </div>
       </div>
     )

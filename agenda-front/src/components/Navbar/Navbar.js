@@ -3,7 +3,7 @@ import React from "react";
 export const Navbar = (props) => (
   <nav className="navbar fixed-top navbar-expand-sm navbar-primary bg-primary">
     <div className="navbar-brand col-1">
-      Contacts
+      Contatos
     </div>
 
     <div className="form-group justify-content-center row col-10 my-2">
@@ -14,7 +14,7 @@ export const Navbar = (props) => (
               ev.preventDefault()
             }}
             type="search"
-            placeholder="Search"
+            placeholder="Procure por número ou nome de contato"
             aria-label="Search"
         />
     </div>

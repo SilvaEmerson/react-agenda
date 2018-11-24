@@ -2,14 +2,23 @@
   text-align: center
 }
 
-.btn.btn-success {
-  margin-bottom: 5px;
-}
-
 .navbar-brand.col-1 {
   color: white;
 }
 
+.container.mt-10 {
+  display: block;
+}
+
+div.card {
+  display: flex;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+#btn-add-contact {
+  margin-top: 2%;
+}
 .container {
   margin-top: 5em
 }
