@@ -1,0 +1,15 @@
+.App {
+  text-align: center
+}
+
+.btn.btn-success {
+  margin-bottom: 5px;
+}
+
+.navbar-brand.col-1 {
+  color: white;
+}
+
+.container {
+  margin-top: 5em
+}
