@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "npm i && cd agenda-front && npm i && npm run build && cd .. && node server/main.js"
+    "start": "npm i && node server/main.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
