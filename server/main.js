@@ -21,5 +21,16 @@ app.route('/contacts')
     ContactModel.create(req.body)
       .then(res.sendStatus(200))
   })
+  .delete(async (req, res) => {
+    console.log(req.body)
+    let contact = await ContactModel.findOne(req.body)
+    try {
+      await contact.destroy()
+      res.sendStatus(200)
+    } catch (error) {
+      console.error(error.message)
+    }
+    // ContactModel.beforeDelete()
+  })
 
 app.listen(3000)

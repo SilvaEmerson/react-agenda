@@ -57,10 +57,10 @@ class App extends Component {
             : <AddContact afterAddFn={ this.getContacts }/>
           }
 
-          {(!!this.state.contacts)
-            ? <Agenda contacts={this.state.contacts} />
-            : <strong>Não foi possível encontrar o termo ou número procurado</strong>
-          }
+          <Agenda
+          contacts={this.state.contacts}
+          url={this.state.url}
+          actionCallback={ this.getContacts }/>
         </div>
       </div>
     )
