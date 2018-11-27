@@ -12,17 +12,15 @@ app.use('/', express.static(buildDir))
 app.use(express.json())
 
 app.route('/contacts')
-  .get((req, res) => {
-    ContactModel.findAll().then(contacts => {
-      res.json(contacts)
-    })
+  .get(async (req, res) => {
+    let contacts = await ContactModel.findAll()
+    res.json(contacts)
   })
-  .post((req, res) => {
-    ContactModel.create(req.body)
-      .then(res.sendStatus(200))
+  .post(async (req, res) => {
+    await ContactModel.create(req.body)
+    res.sendStatus(200)
   })
   .delete(async (req, res) => {
-    console.log(req.body)
     let contact = await ContactModel.findOne(req.body)
     try {
       await contact.destroy()
@@ -30,7 +28,6 @@ app.route('/contacts')
     } catch (error) {
       console.error(error.message)
     }
-    // ContactModel.beforeDelete()
   })
 
 app.listen(3000)
