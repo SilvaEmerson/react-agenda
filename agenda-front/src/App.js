@@ -36,13 +36,10 @@ class App extends Component {
     this.setState({ contacts: filtredContacts, searchString: string });
   }
 
-  getContacts = () => {
-    fetch(this.state.url)
-      .then(res => res.json())
-      .then(data => {
-        this.contacts = data;
-        this.setState({ contacts: data, isAddContact: false  })
-      })
+  getContacts = async () => {
+    let data = await(await fetch(this.state.url)).json()
+    this.contacts = data
+    this.setState({ contacts: data, isAddContact: false  })
   }
 
   render() {

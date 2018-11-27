@@ -1,22 +1,22 @@
 import React from "react";
 
 export const AgendaItem = (props) => {
-  const deleteContact = event => {
-    console.log(props)
-    fetch(props.url, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: props.name,
-        number: props.number
+  const deleteContact = async () => {
+    try{
+      await fetch(props.url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: props.name,
+          number: props.number
+        })
       })
-    })
-      .then(res => {
-        props.afterDelete()
-      })
-      .catch(err => console.log(err.message))
+      props.afterDelete()
+    }catch (err) {
+      console.log(err.message)
+    }
   }
 
   return (

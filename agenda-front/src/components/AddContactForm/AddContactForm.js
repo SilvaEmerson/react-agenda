@@ -12,14 +12,16 @@ export const AddContact = (props) => {
 
   const addContact = () => {
     (sendPayload.name && sendPayload.number)
-    ? fetch(window.location.href + 'contacts/',{
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(sendPayload)
-      })
-        .then(res => props.afterAddFn())
+    ? (async () => {
+        await fetch(window.location.href + 'contacts/',{
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(sendPayload)
+        })
+        props.afterAddFn()
+      })()
     : alert('Agum campo está em branco')
   }
 
