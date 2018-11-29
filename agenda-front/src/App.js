@@ -12,7 +12,7 @@ class App extends Component {
 
     this.state = {
       contacts: [],
-      url: 'http://localhost:3000/contacts',
+      url: `${window.location.href}contacts/`,
       isAddContact: false,
     }
 
