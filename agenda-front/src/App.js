@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import "./App.css"
 import { Agenda } from "./components/Agenda/Agenda";
 import { Navbar } from "./components/Navbar/Navbar";
 import { AddContact } from "./components/AddContactForm/AddContactForm";
+import "./App.css"
 
 class App extends Component {
   constructor(props){
@@ -12,7 +12,7 @@ class App extends Component {
 
     this.state = {
       contacts: [],
-      url: window.location.href + 'contacts/',
+      url: 'http://localhost:3000/contacts',
       isAddContact: false,
     }
 
@@ -51,7 +51,7 @@ class App extends Component {
             ? <button type="button" className="btn btn-success" onClick={
                 () => this.setState({isAddContact: true})
               }>Adicionar contato</button>
-            : <AddContact afterAddFn={ this.getContacts }/>
+            : <AddContact afterAddFn={ this.getContacts } url={this.state.url}/>
           }
 
           <Agenda

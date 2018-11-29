@@ -1,4 +1,5 @@
 import React from "react";
+import "./Navbar.css";
 
 export const Navbar = (props) => (
   <nav className="navbar fixed-top navbar-expand-sm navbar-primary bg-primary">
