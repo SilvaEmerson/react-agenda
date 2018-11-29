@@ -18,8 +18,13 @@ app.route('/contacts')
     res.json(contacts)
   })
   .post(async (req, res) => {
-    await ContactModel.create(req.body)
-    res.sendStatus(200)
+    try {
+      await ContactModel.create(req.body)
+      res.sendStatus(200)
+    } catch (err) {
+      console.log(err.message)
+      res.sendStatus(500)
+    }
   })
   .delete(async (req, res) => {
     let contact = await ContactModel.findOne(req.body)
@@ -28,6 +33,21 @@ app.route('/contacts')
       res.sendStatus(200)
     } catch (error) {
       console.error(error.message)
+      res.sendStatus(500)
+    }
+  })
+  .put(async (req, res) => {
+    try {
+      await ContactModel.update(
+        req.body.new,
+        {
+          where: req.body.old
+        }
+      )
+      res.sendStatus(200)
+    } catch (error) {
+      console.log(error.message)
+      res.sendStatus(500)
     }
   })
 
