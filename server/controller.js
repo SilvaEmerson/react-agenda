@@ -6,8 +6,9 @@ exports.getAllContacts = async (req, res) => {
 }
 
 exports.addContact = async (req, res) => {
+  let { body } = req
   try {
-    await ContactModel.create(req.body)
+    await ContactModel.create(body)
     res.sendStatus(200)
   } catch (err) {
     console.log(err.message)
@@ -16,7 +17,8 @@ exports.addContact = async (req, res) => {
 }
 
 exports.deleteContact = async (req, res) => {
-  let contact = await ContactModel.findOne(req.body)
+  let { body } = req
+  let contact = await ContactModel.findOne(body)
   try {
     await contact.destroy()
     res.sendStatus(200)
@@ -27,11 +29,12 @@ exports.deleteContact = async (req, res) => {
 }
 
 exports.updateContact = async (req, res) => {
+  let { body } = req
   try {
     await ContactModel.update(
-      req.body.new,
+      body.new,
       {
-        where: req.body.old
+        where: body.old
       }
     )
     res.sendStatus(200)
