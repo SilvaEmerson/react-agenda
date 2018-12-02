@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Agenda } from "./components/Agenda/Agenda";
+import { AgendaItem } from "./components/AgendaItem/AgendaItem";
 import { Navbar } from "./components/Navbar/Navbar";
 import { AddContact } from "./components/AddContactForm/AddContactForm";
 import "./App.css"
@@ -54,10 +54,15 @@ class App extends Component {
             : <AddContact afterAddFn={ this.getContacts } url={this.state.url}/>
           }
 
-          <Agenda
-          contacts={this.state.contacts}
-          url={this.state.url}
-          actionCallback={ this.getContacts }/>
+          {this.state.contacts.map(
+            (el, ind) => <AgendaItem
+              key={ind}
+              name={el.name}
+              number={el.number}
+              url={this.state.url}
+              afterDelete={this.getContacts}
+              afterUpdate={this.getContacts} />
+          )}
         </div>
       </div>
     )

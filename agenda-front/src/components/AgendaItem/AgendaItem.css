@@ -1,3 +1,7 @@
+.card{
+  box-shadow: 0px 4px 6px 0 hsla(0, 0%, 0%, 0.2);
+}
+
 .contact-edit-field {
   background: lavender;
   width: 60%;
