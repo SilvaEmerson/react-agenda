@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import "./App.css"
-import { Agenda } from "./components/Agenda/Agenda";
+import { AgendaItem } from "./components/AgendaItem/AgendaItem";
 import { Navbar } from "./components/Navbar/Navbar";
 import { AddContact } from "./components/AddContactForm/AddContactForm";
+import "./App.css"
 
 class App extends Component {
   constructor(props){
@@ -12,7 +12,7 @@ class App extends Component {
 
     this.state = {
       contacts: [],
-      url: window.location.href + 'contacts/',
+      url: `${window.location.href}contacts/`,
       isAddContact: false,
     }
 
@@ -36,13 +36,10 @@ class App extends Component {
     this.setState({ contacts: filtredContacts, searchString: string });
   }
 
-  getContacts = () => {
-    fetch(this.state.url)
-      .then(res => res.json())
-      .then(data => {
-        this.contacts = data;
-        this.setState({ contacts: data, isAddContact: false  })
-      })
+  getContacts = async () => {
+    let data = await(await fetch(this.state.url)).json()
+    this.contacts = data
+    this.setState({ contacts: data, isAddContact: false  })
   }
 
   render() {
@@ -54,13 +51,18 @@ class App extends Component {
             ? <button type="button" className="btn btn-success" onClick={
                 () => this.setState({isAddContact: true})
               }>Adicionar contato</button>
-            : <AddContact afterAddFn={ this.getContacts }/>
+            : <AddContact afterAddFn={ this.getContacts } url={this.state.url}/>
           }
 
-          {(!!this.state.contacts)
-            ? <Agenda contacts={this.state.contacts} />
-            : <strong>Não foi possível encontrar o termo ou número procurado</strong>
-          }
+          {this.state.contacts.map(
+            (el, ind) => <AgendaItem
+              key={ind}
+              name={el.name}
+              number={el.number}
+              url={this.state.url}
+              afterDelete={this.getContacts}
+              afterUpdate={this.getContacts} />
+          )}
         </div>
       </div>
     )
