@@ -1,4 +1,5 @@
 import React from "react";
+import "./AddContactForm.css";
 
 export const AddContact = (props) => {
   const sendPayload = {
@@ -8,17 +9,22 @@ export const AddContact = (props) => {
 
   const handleChange = event => {
     sendPayload[event.target.id] = event.target.value;
+    event.preventDefault()
   }
 
   const addContact = () => {
-    fetch(window.location.href + 'contacts/',{
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(sendPayload)
-    })
-      .then(res => props.afterAddFn())
+    (sendPayload.name && sendPayload.number)
+    ? (async () => {
+        await fetch(props.url,{
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(sendPayload)
+        })
+        props.afterAddFn()
+      })()
+    : alert('Agum campo está em branco')
   }
 
   return (
